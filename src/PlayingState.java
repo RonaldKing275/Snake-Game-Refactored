@@ -18,27 +18,42 @@ public class PlayingState implements GameState {
 
     @Override
     public void update() {
+        // Obliczanie przyszłej pozycji głowy (nextHead)
+        Point head = snake.getBody().getFirst();
+        Point nextHead = new Point(head);
+
+        switch (snake.getDirection()) {
+            case UP -> nextHead.y -= 10;
+            case DOWN -> nextHead.y += 10;
+            case LEFT -> nextHead.x -= 10;
+            case RIGHT -> nextHead.x += 10;
+        }
+
+        // Sprawdzanie kolizji ZANIM wąż się ruszy (Strict Collision)
+        // Jeśli wąż uderzy w ścianę LUB w swoje ciało (w tym ogon) -> Game Over
+        if (checkWallCollision(nextHead) || checkBodyCollision(nextHead)) {
+            context.setState(new GameOverState(context, snake.getBody().size() - 3));
+            return; // Kończymy update, nie ruszamy węża dalej
+        }
+
+        // Sprawdzanie jabłka i wykonanie ruchu
         boolean grow = false;
-        if (snake.getBody().getFirst().equals(apple)) {
+        if (nextHead.equals(apple)) {
             grow = true;
             locateApple();
         }
+
         snake.move(grow);
-        checkCollisions();
     }
 
-    private void checkCollisions() {
-        Point head = snake.getBody().getFirst();
-        // Sprawdzenie ścian
-        if (head.x < 0 || head.x >= B_WIDTH || head.y < 0 || head.y >= B_HEIGHT) {
-            context.setState(new GameOverState(context, snake.getBody().size() - 3));
-        }
-        // Sprawdzenie ogona
-        for (int i = 1; i < snake.getBody().size(); i++) {
-            if (head.equals(snake.getBody().get(i))) {
-                context.setState(new GameOverState(context, snake.getBody().size() - 3));
-            }
-        }
+    // Pomocnicza metoda do sprawdzania ścian
+    private boolean checkWallCollision(Point p) {
+        return p.x < 0 || p.x >= B_WIDTH || p.y < 0 || p.y >= B_HEIGHT;
+    }
+
+    // Pomocnicza metoda do sprawdzania ciała
+    private boolean checkBodyCollision(Point p) {
+        return snake.getBody().contains(p);
     }
 
     @Override

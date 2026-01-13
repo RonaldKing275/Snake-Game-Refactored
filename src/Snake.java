@@ -4,6 +4,7 @@ import java.util.LinkedList;
 public class Snake {
     private final LinkedList<Point> body = new LinkedList<>();
     private Direction direction = Direction.RIGHT;
+    private boolean canMove = true; // Flaga blokująca
 
     public Snake(int startLength) {
         for (int i = 0; i < startLength; i++) {
@@ -14,6 +15,7 @@ public class Snake {
     public void setDirection(Direction newDir) {
         if (!direction.isOpposite(newDir)) {
             this.direction = newDir;
+            canMove = false; // Zablokuj kolejne zmiany w tej turze
         }
     }
 
@@ -30,6 +32,8 @@ public class Snake {
 
         body.addFirst(newHead);
         if (!grow) body.removeLast();
+
+        canMove = true; // Odblokuj sterowanie po wykonaniu ruchu
     }
 
     public LinkedList<Point> getBody() { return body; }

@@ -1,5 +1,4 @@
 import java.awt.Graphics;
-import java.awt.event.KeyEvent;
 
 // Interfejs Stanu
 interface GameState {
