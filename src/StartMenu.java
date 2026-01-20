@@ -9,7 +9,7 @@ public class StartMenu extends JFrame {
         setTitle("Snake - Refactored");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(300, 120);
-        setLocationRelativeTo(null);
+        setLocationRelativeTo(null); // Okienko centralnie na środku ekranu
 
         JPanel panel = new JPanel();
         JTextField nameField = new JTextField(10);
@@ -19,10 +19,10 @@ public class StartMenu extends JFrame {
         startBtn.addActionListener(_ -> {
             String name = nameField.getText();
             if (!name.isBlank()) {
-                dispose();
+                dispose(); // zamknij okienko menu
                 JFrame gameFrame = new JFrame("Snake");
                 gameFrame.add(new Board(name));
-                gameFrame.pack();
+                gameFrame.pack(); // dopasowanie rozmiaru
                 gameFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
                 gameFrame.setLocationRelativeTo(null);
                 gameFrame.setVisible(true);
