@@ -29,10 +29,8 @@ public class Snake {
             case LEFT -> newHead.x -= 10;
             case RIGHT -> newHead.x += 10;
         }
-
         body.addFirst(newHead);
         if (!grow) body.removeLast();
-
         canMove = true; // Odblokuj sterowanie po wykonaniu ruchu
     }
 
