@@ -25,8 +25,8 @@ public class GameOverState implements GameState {
     public void render(Graphics g) {
         String msg = "Game Over. Score: " + score;
         g.setColor(Color.white);
-        g.drawString(msg, 100, 150);
-        g.drawString("Press SPACE to restart", 90, 170);
+        g.drawString(msg, (int)(context.width*0.33), (int)(context.height*0.45));
+        g.drawString("Press SPACE to restart", (int)(context.width*0.31), (int)(context.height*0.55));
     }
 
     @Override

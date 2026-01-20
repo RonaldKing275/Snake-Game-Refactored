@@ -9,20 +9,21 @@ public class Board extends JPanel implements ActionListener {
 
     private GameState state; // Aktualny STAN
     private final String userName;
-    private Timer timer;
+    public final int width = 300;
+    public final int height = 300; // Rozmiar mapy
 
     public Board(String userName) {
         this.userName = userName;
         setBackground(Color.black);
         setFocusable(true);
-        setPreferredSize(new Dimension(300, 300));
+        setPreferredSize(new Dimension(width, height));
         addKeyListener(new InputAdapter());
 
         // Stan początkowy
         this.state = new PlayingState(this);
 
         // Pętla gry (Obserwator czasu)
-        timer = new Timer(140, this);
+        Timer timer = new Timer(140, this);
         timer.start();
     }
 
@@ -39,7 +40,6 @@ public class Board extends JPanel implements ActionListener {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         state.render(g); // Delegacja do aktualnego stanu
-        Toolkit.getDefaultToolkit().sync();
     }
 
     @Override

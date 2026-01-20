@@ -13,7 +13,7 @@ public class Snake {
     }
 
     public void setDirection(Direction newDir) {
-        if (!direction.isOpposite(newDir)) {
+        if (canMove && !direction.isOpposite(newDir)) {
             this.direction = newDir;
             canMove = false; // Zablokuj kolejne zmiany w tej turze
         }

@@ -6,9 +6,9 @@ public class StartMenu extends JFrame {
     }
 
     private void initUI() {
-        setTitle("Snake - Patterns Edition");
+        setTitle("Snake - Refactored");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(300, 150);
+        setSize(300, 120);
         setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
@@ -16,7 +16,7 @@ public class StartMenu extends JFrame {
         JButton startBtn = new JButton("Start");
         JButton scoresBtn = new JButton("Scores");
 
-        startBtn.addActionListener(e -> {
+        startBtn.addActionListener(_ -> {
             String name = nameField.getText();
             if (!name.isBlank()) {
                 dispose();
@@ -29,7 +29,7 @@ public class StartMenu extends JFrame {
             }
         });
 
-        scoresBtn.addActionListener(e -> {
+        scoresBtn.addActionListener(_ -> {
             // Użycie Fasady
             var scores = new ScoreFacade().getAllScores();
             JOptionPane.showMessageDialog(this, String.join("\n", scores));
@@ -42,7 +42,7 @@ public class StartMenu extends JFrame {
         add(panel);
     }
 
-    public static void main(String[] args) {
+    static void main() {
         SwingUtilities.invokeLater(() -> new StartMenu().setVisible(true));
     }
 }

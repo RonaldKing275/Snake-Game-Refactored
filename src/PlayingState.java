@@ -6,8 +6,6 @@ public class PlayingState implements GameState {
     private final Board context;
     private final Snake snake;
     private Point apple;
-    private final int B_WIDTH = 300;
-    private final int B_HEIGHT = 300;
     private final Random rand = new Random();
 
     public PlayingState(Board context) {
@@ -30,7 +28,7 @@ public class PlayingState implements GameState {
         }
 
         // Sprawdzanie kolizji ZANIM wąż się ruszy (Strict Collision)
-        // Jeśli wąż uderzy w ścianę LUB w swoje ciało (w tym ogon) -> Game Over
+        // Jeśli wąż uderzy w ścianę LUB w swoje ciało -> Game Over
         if (checkWallCollision(nextHead) || checkBodyCollision(nextHead)) {
             context.setState(new GameOverState(context, snake.getBody().size() - 3));
             return; // Kończymy update, nie ruszamy węża dalej
@@ -48,7 +46,8 @@ public class PlayingState implements GameState {
 
     // Pomocnicza metoda do sprawdzania ścian
     private boolean checkWallCollision(Point p) {
-        return p.x < 0 || p.x >= B_WIDTH || p.y < 0 || p.y >= B_HEIGHT;
+        // Pobieranie rozmiaru mapy z Board
+        return p.x < 0 || p.x >= context.width || p.y < 0 || p.y >= context.height;
     }
 
     // Pomocnicza metoda do sprawdzania ciała
